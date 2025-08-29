@@ -66,7 +66,7 @@ services = [
 
 const serviceSection = document.getElementById("service-section");
 function renderServices() {
-  for (let i = 0; i < services.length; i++) {
+  for (let i = 0; i < services.length; i += 1) {
     const service = services[i];
     const { name, type, number, category, img } = service;
     const serviceCard = document.createElement("div");
@@ -88,7 +88,7 @@ function renderServices() {
           <div class="mt-4">
             <h2
               id="serviceName-${i}"
-              class="font-hind font-bold text-2xl text-[#111] mb-1 overflow-hidden text-ellipsis whitespace-nowrap w-full block"
+              class="font-hind font-bold text-2xl text-black mb-1 overflow-hidden text-ellipsis whitespace-nowrap w-full block"
             >
               ${name}
             </h2>
@@ -97,7 +97,7 @@ function renderServices() {
             </p>
             <h1
               id="serviceNumber-${i}"
-              class="font-roboto text-3xl font-bold text-[#111] mt-6"
+              class="font-roboto text-3xl font-bold text-black mt-6"
             >
               ${number}
             </h1>
@@ -113,7 +113,7 @@ function renderServices() {
               >
                 <a
                   href="#"
-                  class="font-roboto font-normal text-base text-[#5c5c5c]"
+                  class="flex justify-center items-center gap-1 font-roboto font-normal text-base text-[#5c5c5c]"
                   ><i class="fa-regular fa-copy text-[#5c5c5c] rotate-90"></i
                   >Copy</a
                 >
@@ -122,7 +122,7 @@ function renderServices() {
                 id="callButton-${i}"
                 class="flex justify-center items-center gap-1 rounded-lg border-[1px] bg-[#00a63e] border-[#00a63e] py-[10px] px-[30px]"
               >
-                <a href="#" class="font-roboto font-normal text-base text-white"
+                <a href="#" class="flex justify-center items-center gap-1 font-roboto font-normal text-base text-white"
                   ><i class="fa-solid fa-phone text-white"></i>Call</a
                 >
               </div>
@@ -130,18 +130,23 @@ function renderServices() {
           </div>
         </div>
     `;
-    serviceSection.appendChild(serviceCard);
+    if (i < 3) {
+      serviceSection.insertBefore(serviceCard, serviceSection.children[i]);
+    } else {
+      serviceSection.appendChild(serviceCard);
+    }
   }
-  serviceSection.classList.add(
-    "grid",
-    "grid-cols-1",
-    "md:grid-cols-3",
-    "lg:grid-cols-4",
-    "gap-6",
-    "mt-12",
-    "mb-20",
-    "mx-auto"
-  );
+
+  document
+    .getElementById("historyOrder")
+    .classList.add(
+      "order-last",
+      "md:order-none",
+      "md:col-start-3",
+      "lg:col-start-4",
+      "md:row-span-5",
+      "lg:row-span-3"
+    );
 }
 
 renderServices();
