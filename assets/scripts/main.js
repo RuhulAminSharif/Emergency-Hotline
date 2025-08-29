@@ -109,7 +109,7 @@ function renderServices() {
             <div class="w-full grid grid-cols-2 gap-2">
               <div
                 id="copyBtn-${i}"
-                class="flex justify-center items-center rounded-lg border-[1px] border-[#d4d6d5] py-[10px] px-[25px]"
+                class="flex justify-center items-center gap-1 rounded-lg border-[1px] border-[#d4d6d5] py-[10px] px-[25px]"
               >
                 <a
                   href="#"
@@ -120,7 +120,7 @@ function renderServices() {
               </div>
               <div
                 id="callButton-${i}"
-                class="flex justify-center items-center rounded-lg border-[1px] bg-[#00a63e] border-[#00a63e] py-[10px] px-[30px]"
+                class="flex justify-center items-center gap-1 rounded-lg border-[1px] bg-[#00a63e] border-[#00a63e] py-[10px] px-[30px]"
               >
                 <a href="#" class="font-roboto font-normal text-base text-white"
                   ><i class="fa-solid fa-phone text-white"></i>Call</a
@@ -145,3 +145,42 @@ function renderServices() {
 }
 
 renderServices();
+
+let copyCount = 0;
+// Call and Copy Button
+for (let i = 0; i < services.length; i++) {
+  const service = services[i];
+  const { name, number } = service;
+
+  // Call Functionalities
+  const callBtn = document.getElementById(`callButton-${i}`);
+  callBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    let currCoin = parseInt(document.getElementById(`coin-count`).innerText);
+
+    if (currCoin >= 20) {
+      currCoin -= 20;
+      document.getElementById(`coin-count`).innerText = currCoin;
+      alert(`Calling ${name} on ${number}`);
+    } else {
+      alert("You don't have enough coins");
+    }
+  });
+
+  // Copy Functionalities
+  const copyBtn = document.getElementById(`copyBtn-${i}`);
+  copyBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const copyText = document.getElementById(`serviceNumber-${i}`).innerText;
+    navigator.clipboard.writeText(copyText).then(
+      () => {
+        copyCount += 1;
+        document.getElementById(`copy-count`).innerText = copyCount;
+        alert(`The copied number is ${copyText}`);
+      },
+      () => {
+        alert("Failed to copy the number");
+      }
+    );
+  });
+}
