@@ -78,11 +78,13 @@ function renderServices() {
             <div class="rounded-2xl bg-[#ffe3e2] p-3">
               <img src="${img}" alt="" class="w-8 h-8" />
             </div>
-            <div>
-              <i
+            <div class="cursor-pointer">
+              <a>
+                <i
                 class="fa-regular fa-heart text-[#5c5c5c]"
                 id="heartIcon-${i}"
-              ></i>
+                ></i>
+              </a>
             </div>
           </div>
           <div class="mt-4">
@@ -149,10 +151,16 @@ function renderServices() {
     );
 }
 
+function updateHeartCount() {
+  const heartCount = parseInt(document.getElementById(`heart-count`).innerText);
+  const newHeartCount = heartCount + 1;
+  document.getElementById(`heart-count`).innerText = newHeartCount;
+}
+
 renderServices();
 
 let copyCount = 0;
-// Call and Copy Button
+// Event Handling
 for (let i = 0; i < services.length; i++) {
   const service = services[i];
   const { name, number } = service;
@@ -187,5 +195,12 @@ for (let i = 0; i < services.length; i++) {
         alert("Failed to copy the number");
       }
     );
+  });
+
+  // Heart Functionalities
+  const heartIcon = document.getElementById(`heartIcon-${i}`);
+  heartIcon.addEventListener("click", (e) => {
+    e.preventDefault();
+    updateHeartCount();
   });
 }
