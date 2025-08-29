@@ -27,10 +27,66 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
-  <body>
-    <h1 class="font-hind">This is Hind Madurai</h1>
-    <p class="font-roboto">This is Roboto</p>
-    <span class="font-inter">This is Inter</span>
+  <body class="bg-[var(--body-bg)] max-w-screen-2xl mx-auto">
+    <!-- header starts -->
+    <header>
+      <!-- Navbar Starts -->
+      <nav
+        class="flex justify-between items-center gap-x-2 md:gap-x-5 py-[12px] px-[1%] md:px-[3%] bg-white"
+      >
+        <!-- Left Side -->
+        <div class="flex items-center justify-between gap-3">
+          <a href="./index.html">
+            <img
+              class="w-[35px] h-[35px] md:w-[50px] md:h-[50px]"
+              src="./assets/images/logo.png"
+              alt="Logo"
+            />
+          </a>
+          <a href="./index.html">
+            <h2
+              class="font-inter font-bold text-[#006747] text-[16px] md:text-xl"
+            >
+              Emergency <br />
+              Service
+            </h2>
+          </a>
+        </div>
+        <!-- Right Side -->
+        <div
+          class="font-inter flex justify-end items-center gap-x-1 md:gap-x-3 lg:gap-x-5 font-[12px] md:font-[16px]"
+        >
+          <div
+            class="flex justify-center items-center rounded-xl md:rounded-[50px] bg-[rgba(65,255,107,0.1)] py-2 md:py-3 px-2 sm:px-3 md:px-5 font-bold gap-x-1 md:gap-x-2"
+          >
+            <span id="heart-count">0</span>
+            <img
+              class="h-[30px] w-[30px]"
+              src="./assets/images/heart.png"
+              alt="Heart"
+            />
+          </div>
+          <div
+            class="flex justify-center items-center rounded-xl md:rounded-[50px] bg-[rgba(65,255,107,0.1)] py-2 md:py-3 px-2 sm:px-3 md:px-5 font-bold gap-x-1 md:gap-x-2"
+          >
+            <span id="coin-count">100</span>
+            <img
+              class="h-[30px] w-[30px]"
+              src="./assets/images/coin.png"
+              alt="Coin"
+            />
+          </div>
+          <div
+            class="flex text-white font-weight-[600px] justify-center items-center rounded-xl md:rounded-[50px] bg-[#00a63e] py-2 md:py-3 px-2 sm:px-3 md:px-5 gap-x-1 md:gap-x-2"
+          >
+            <span id="copy-count">0</span>
+            <p>copy</p>
+          </div>
+        </div>
+      </nav>
+      <!-- Navbar Ends -->
+    </header>
+    <!-- header ends -->
 
     <!-- Script -->
     <script src="./assets/scripts/main.js"></script>
