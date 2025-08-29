@@ -151,6 +151,60 @@ function renderServices() {
     );
 }
 
+function updateCoinCount(name, number) {
+  let currCoin = parseInt(document.getElementById(`coin-count`).innerText);
+
+  if (currCoin >= 20) {
+    currCoin -= 20;
+    document.getElementById(`coin-count`).innerText = currCoin;
+    alert(`Calling ${name} on ${number}`);
+  } else {
+    alert("You don't have enough coins");
+  }
+}
+
+function updateCopyCount(i) {
+  const copyText = document.getElementById(`serviceNumber-${i}`).innerText;
+  navigator.clipboard.writeText(copyText).then(
+    () => {
+      copyCount += 1;
+      document.getElementById(`copy-count`).innerText = copyCount;
+      alert(`The copied number is ${copyText}`);
+    },
+    () => {
+      alert("Failed to copy the number");
+    }
+  );
+}
+
+function updateCallHistory(name, number, time) {
+  const allCalls = document.getElementById("allCalls");
+  const div = document.createElement("div");
+  div.innerHTML = `
+    <div class="flex justify-between items-center rounded-lg p-3 bg-[#fafafa] mt-5">
+      <div>
+        <h2 class="font-inter font-normal text-lg text-black mb-2">
+          ${name}
+        </h2>
+        <p class="font-hind font-normal text-[16px] text-[#5c5c5c]">
+          ${number}
+        </p>
+      </div>
+      <div>
+        <p class="font-hind font-normal text-lg text-black">
+          ${time}
+        </p>
+      </div>
+    </div>
+  `;
+  allCalls.appendChild(div);
+}
+
+function clearCallHistory() {
+  const allCalls = document.getElementById("allCalls");
+  allCalls.innerHTML = "";
+}
+
 function updateHeartCount() {
   const heartCount = parseInt(document.getElementById(`heart-count`).innerText);
   const newHeartCount = heartCount + 1;
@@ -169,32 +223,15 @@ for (let i = 0; i < services.length; i++) {
   const callBtn = document.getElementById(`callButton-${i}`);
   callBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    let currCoin = parseInt(document.getElementById(`coin-count`).innerText);
-
-    if (currCoin >= 20) {
-      currCoin -= 20;
-      document.getElementById(`coin-count`).innerText = currCoin;
-      alert(`Calling ${name} on ${number}`);
-    } else {
-      alert("You don't have enough coins");
-    }
+    updateCoinCount(name, number);
+    updateCallHistory(name, number, new Date().toLocaleTimeString());
   });
 
   // Copy Functionalities
   const copyBtn = document.getElementById(`copyBtn-${i}`);
   copyBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    const copyText = document.getElementById(`serviceNumber-${i}`).innerText;
-    navigator.clipboard.writeText(copyText).then(
-      () => {
-        copyCount += 1;
-        document.getElementById(`copy-count`).innerText = copyCount;
-        alert(`The copied number is ${copyText}`);
-      },
-      () => {
-        alert("Failed to copy the number");
-      }
-    );
+    updateCopyCount(i);
   });
 
   // Heart Functionalities
@@ -204,3 +241,10 @@ for (let i = 0; i < services.length; i++) {
     updateHeartCount();
   });
 }
+
+// Clear Call History
+const clearBtn = document.getElementById("clearBtn");
+clearBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  clearCallHistory();
+});
